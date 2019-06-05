@@ -1,11 +1,13 @@
-package org.firstinspires.ftc.TeamName.Robot;
+package TeamName.Robot;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
 
 public class Controls {
     //Robot Object Instantiation
     private static Controls obj;
     private OpMode mOpMode;
+
 
     //Initializes the Controls object.
     public static Controls getInstance() {
