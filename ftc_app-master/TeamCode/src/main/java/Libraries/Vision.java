@@ -1,4 +1,4 @@
-package LactoseIntolerantLibs;
+package Libraries;
 
 import android.graphics.Bitmap;
 

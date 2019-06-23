@@ -1,14 +1,13 @@
-package LactoseIntolerant;
+package TeamName;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import LactoseIntolerantLibs.Drivetrain;
-import LactoseIntolerantLibs.Intake;
+import Libraries.Drivetrain;
+import Libraries.Intake;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous
-        (name = "ServoTest", group = "Auto")
+@Autonomous(name = "ServoTest", group = "Auto")
 
 public class ServoTest extends LinearOpMode {
     Intake intake;
@@ -17,16 +16,16 @@ public class ServoTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         intake = new Intake(this);
-        intake.setPivotPos(0.75,0.25);
+        intake.setIntakeGate(0.75);
 
         telemetry.addLine("Initialized");
         telemetry.update();
 
         waitForStart();
 
-        intake.setPivotPos(0.5,0.5);
-        telemetry.addData("Left: ", intake.getPivotLPos());
-        telemetry.addData("Right: ", intake.getPivotRPos());
+        intake.setIntakeGate(0.5);
+
+        telemetry.addData("Gate Position: ", intake.getIntakeGatePosition());
         telemetry.update();
     }
 }

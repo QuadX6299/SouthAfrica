@@ -1,4 +1,4 @@
-package LactoseIntolerantLibs;
+package Libraries;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -6,42 +6,42 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class Actuator {
+public class Output {
 
     private LinearOpMode opMode;
 
-    private DcMotor actuator;
+    private DcMotor output;
 
-    public Actuator(LinearOpMode opMode) {
+
+    public Output(LinearOpMode opMode) {
         this.opMode = opMode;
 
-        actuator = opMode.hardwareMap.dcMotor.get("actuator");
+        output = opMode.hardwareMap.dcMotor.get("output");
 
-        actuator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        output.setDirection(DcMotorSimple.Direction.FORWARD);
+        output.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
     }
 
-    public void hang(double power, double timeout) {
+    public void armForwards(double timeout) {
         ElapsedTime time = new ElapsedTime();
 
         while (time.seconds() < timeout && opMode.opModeIsActive()) {
-            actuator.setPower(power);
+            output.setPower(1);
 
         }
-        actuator.setPower(0);
+        output.setPower(0);
 
     }
 
-    public void dehang(double power, double timeout) {
+    public void armBackwards(double timeout) {
         ElapsedTime time = new ElapsedTime();
 
         while (time.seconds() < timeout && opMode.opModeIsActive()) {
-            actuator.setPower(-power);
+            output.setPower(-1);
 
         }
-        actuator.setPower(0);
+        output.setPower(0);
 
     }
-
-
 }
