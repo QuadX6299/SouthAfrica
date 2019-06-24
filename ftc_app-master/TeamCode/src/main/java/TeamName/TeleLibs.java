@@ -21,8 +21,8 @@ public abstract class TeleLibs extends OpMode {
 
 
 
-    private Servo intakeGate;
-    private Servo knocker;
+    public Servo intakeGate;
+    public Servo knocker;
 
 
 
@@ -34,17 +34,19 @@ public abstract class TeleLibs extends OpMode {
         bl = hardwareMap.dcMotor.get("bl"); //1
         br = hardwareMap.dcMotor.get("br"); //3
 
-        //actuator = hardwareMap.dcMotor.get("actuator");
+        arm = hardwareMap.dcMotor.get("arm");
 
         intakeMotor = hardwareMap.dcMotor.get("intakeMotor");
         intakeSlide = hardwareMap.dcMotor.get("intakeSpool");
 
         //output = hardwareMap.dcMotor.get("output");
 
-        fl.setDirection(DcMotorSimple.Direction.FORWARD);
-        fr.setDirection(DcMotorSimple.Direction.REVERSE);
-        bl.setDirection(DcMotorSimple.Direction.FORWARD);
-        br.setDirection(DcMotorSimple.Direction.REVERSE);
+        fl.setDirection(DcMotorSimple.Direction.REVERSE);
+        fr.setDirection(DcMotorSimple.Direction.FORWARD);
+        bl.setDirection(DcMotorSimple.Direction.REVERSE);
+        br.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeSlide.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -54,14 +56,85 @@ public abstract class TeleLibs extends OpMode {
         intakeGate = hardwareMap.servo.get("intakeGate");
         knocker = hardwareMap.servo.get("knocker");
 
+        knocker.setPosition(0.9);
+        intakeGate.setPosition(0.0);
 
 
         telemetry.addLine("Initialized");
+        telemetry.addData("intakeGatePos: ", intakeGate.getPosition());
         telemetry.update();
 
     }
 
     // =======================================  DRIVE  =============================================
+
+//    public void strafe() {
+//        if (gamepad1.dpad_right) {
+//            fl.setPower(1.0);
+//            fr.setPower(-1.0);
+//            bl.setPower(-1.0);
+//            br.setPower(1.0);
+//
+//        }
+//        else if (gamepad1.dpad_left){
+//            fl.setPower(-1.0);
+//            fr.setPower(1.0);
+//            bl.setPower(1.0);
+//            br.setPower(-1.0);
+//
+//        } else {
+//            fl.setPower(0.0);
+//            fr.setPower(0.0);
+//            bl.setPower(0.0);
+//            br.setPower(0.0);
+//
+//        }
+//
+//    }
+
+    public void drive()
+    {
+        if (Math.abs(gamepad1.left_stick_y) > .05 ) {
+            fl.setPower(gamepad1.left_stick_y);
+            bl.setPower(gamepad1.left_stick_y);
+            fr.setPower(gamepad1.left_stick_y);
+            br.setPower(gamepad1.left_stick_y);
+
+        }
+
+        else if (gamepad1.right_stick_x < -.05 || gamepad1.right_stick_x > .05 ) {
+
+            fl.setPower(-gamepad1.right_stick_x);
+            bl.setPower(-gamepad1.right_stick_x);
+            fr.setPower(gamepad1.right_stick_x);
+            br.setPower(gamepad1.right_stick_x);
+        }
+
+        else if (Math.abs(gamepad1.left_stick_x )> 0.05)
+        {
+
+            fl.setPower(gamepad1.left_stick_x * -1.0);
+            fr.setPower(gamepad1.left_stick_x * 0.5);
+            bl.setPower(gamepad1.left_stick_x * 0.5);
+            br.setPower(gamepad1.left_stick_x * -0.5);
+
+        }
+
+//        else if (gamepad1.dpad_right)
+//        {
+//            fl.setPower(-1.0);
+//            fr.setPower(0.5);
+//            bl.setPower(0.5);
+//            br.setPower(-0.5);
+//
+//        }
+        else {
+            fl.setPower(0.0);
+            bl.setPower(0.0);
+            fr.setPower(0.0);
+            br.setPower(0.0);
+        }
+    }
 
     public void arcadeDrive() {
         //checking for valid range to apply power (has to give greater power than .1)
@@ -120,31 +193,56 @@ public abstract class TeleLibs extends OpMode {
 
     }
 
+
 //    public double getIntakeEncoder() {
 //        return ((intakeL.getCurrentPosition() + intakeR.getCurrentPosition()) / 2);
 //
 //    }
 
+
     public void knocker()
     {
-        double position = 0.1;
-        if (gamepad1.a)
-            knocker.setPosition(position + 0.1);
-        else if (gamepad1.b)
-            knocker.setPosition(position - 0.1);
+
+
+        //down
+        if (gamepad2.a)
+            knocker.setPosition(0.5);
+        //up
+        else if (gamepad2.b)
+            knocker.setPosition(0.9);
 
     }
 
+
+    public void intakeGateMove(){
+
+
+        //closed
+        if(gamepad1.a)
+        {
+            intakeGate.setPosition(0.0);
+        }
+
+        //open
+        if(gamepad1.b)
+        {
+            intakeGate.setPosition(0.3);
+        }
+    }
+
     public void collect() {
-        if (gamepad2.left_bumper) {
-            intakeMotor.setPower(0.7);
+        double left_trigger = gamepad2.left_trigger;
+        double right_trigger = gamepad2.right_trigger;
 
+        if (left_trigger > 0.05) {
+            intakeMotor.setPower(left_trigger);
         }
-        else if (gamepad2.right_bumper) {
-            intakeMotor.setPower(-0.7);
-
+        else if (right_trigger > 0.05) {
+            intakeMotor.setPower(-right_trigger);
         }
-        intakeMotor.setPower(0.0);
+        else {
+            intakeMotor.setPower(0);
+        }
 
     }
 
