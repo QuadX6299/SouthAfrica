@@ -101,34 +101,20 @@ public abstract class TeleLibs extends OpMode {
             br.setPower(gamepad1.left_stick_y);
 
         }
-
         else if (gamepad1.right_stick_x < -.05 || gamepad1.right_stick_x > .05 ) {
 
             fl.setPower(-gamepad1.right_stick_x);
             bl.setPower(-gamepad1.right_stick_x);
             fr.setPower(gamepad1.right_stick_x);
             br.setPower(gamepad1.right_stick_x);
-        }
-
-        else if (Math.abs(gamepad1.left_stick_x )> 0.05)
+        } else if (Math.abs(gamepad1.left_stick_x )> 0.05)
         {
 
             fl.setPower(gamepad1.left_stick_x * -1.0);
             fr.setPower(gamepad1.left_stick_x * 0.5);
             bl.setPower(gamepad1.left_stick_x * 0.5);
             br.setPower(gamepad1.left_stick_x * -0.5);
-
-        }
-
-//        else if (gamepad1.dpad_right)
-//        {
-//            fl.setPower(-1.0);
-//            fr.setPower(0.5);
-//            bl.setPower(0.5);
-//            br.setPower(-0.5);
-//
-//        }
-        else {
+        } else {
             fl.setPower(0.0);
             bl.setPower(0.0);
             fr.setPower(0.0);
