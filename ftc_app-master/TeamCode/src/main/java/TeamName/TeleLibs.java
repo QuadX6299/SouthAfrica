@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public abstract class TeleLibs extends OpMode {
 
+
     private DcMotor fl;
     private DcMotor fr;
     private DcMotor bl;
@@ -19,12 +20,8 @@ public abstract class TeleLibs extends OpMode {
 
     private DcMotor arm;
 
-
-
     public Servo intakeGate;
     public Servo knocker;
-
-
 
     @Override
     public void init() {
@@ -34,10 +31,10 @@ public abstract class TeleLibs extends OpMode {
         bl = hardwareMap.dcMotor.get("bl"); //1
         br = hardwareMap.dcMotor.get("br"); //3
 
-        arm = hardwareMap.dcMotor.get("arm");
+        //arm = hardwareMap.dcMotor.get("arm");
 
-        intakeMotor = hardwareMap.dcMotor.get("intakeMotor");
-        intakeSlide = hardwareMap.dcMotor.get("intakeSpool");
+        //intakeMotor = hardwareMap.dcMotor.get("intakeMotor");
+        //intakeSlide = hardwareMap.dcMotor.get("intakeSpool");
 
         //output = hardwareMap.dcMotor.get("output");
 
@@ -46,22 +43,22 @@ public abstract class TeleLibs extends OpMode {
         bl.setDirection(DcMotorSimple.Direction.REVERSE);
         br.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        intakeSlide.setDirection(DcMotorSimple.Direction.FORWARD);
+        //intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        //intakeSlide.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         // SERVO INITIALIZATION
-        intakeGate = hardwareMap.servo.get("intakeGate");
-        knocker = hardwareMap.servo.get("knocker");
+        //intakeGate = hardwareMap.servo.get("intakeGate");
+        //knocker = hardwareMap.servo.get("knocker");
 
-        knocker.setPosition(0.9);
-        intakeGate.setPosition(0.0);
+        //knocker.setPosition(0.9);
+        //intakeGate.setPosition(0.0);
 
 
         telemetry.addLine("Initialized");
-        telemetry.addData("intakeGatePos: ", intakeGate.getPosition());
+        //telemetry.addData("intakeGatePos: ", intakeGate.getPosition());
         telemetry.update();
 
     }
@@ -96,9 +93,9 @@ public abstract class TeleLibs extends OpMode {
     {
         if (Math.abs(gamepad1.left_stick_y) > .05 ) {
             fl.setPower(gamepad1.left_stick_y);
-            bl.setPower(gamepad1.left_stick_y);
+            bl.setPower(-gamepad1.left_stick_y);
             fr.setPower(gamepad1.left_stick_y);
-            br.setPower(gamepad1.left_stick_y);
+            br.setPower(-gamepad1.left_stick_y);
 
         }
         else if (gamepad1.right_stick_x < -.05 || gamepad1.right_stick_x > .05 ) {
