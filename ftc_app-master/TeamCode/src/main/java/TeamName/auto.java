@@ -25,11 +25,19 @@ public class auto extends LinearOpMode {
         waitForStart();
 
         dt.setPower(0.75);
-        sleep(250);
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         dt.stopMotors();
 
         dt.turn(0.5,true);
-        sleep(250);
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         dt.stopMotors();
 
     }

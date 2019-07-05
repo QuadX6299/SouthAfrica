@@ -15,8 +15,12 @@ public class Drivetrain {
     private DcMotor bl;
     private DcMotor br;
 
+    private ElapsedTime elapsedTime;
+
     public Drivetrain(LinearOpMode opMode) {
         this.opMode = opMode;
+
+        elapsedTime = new ElapsedTime();
 
         gyro = new Gyro(opMode, true);
 
@@ -60,11 +64,21 @@ public class Drivetrain {
 
     }
 
-    public void setPower(double power) {
+    public void setPower(double power, long time) {
+
+
         fl.setPower(power);
         fr.setPower(power);
         bl.setPower(power);
         br.setPower(power);
+
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        stopMotors();
 
     }
 
@@ -76,7 +90,7 @@ public class Drivetrain {
 
     }
 
-    public void turn(double power, boolean right) {
+    public void turn(double power, long time, boolean right) {
         //turns right
         if (right) {
             fl.setPower(power);
@@ -84,6 +98,13 @@ public class Drivetrain {
             bl.setPower(power);
             br.setPower(-power);
 
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            stopMotors();
         }
 
         // turns left
@@ -93,7 +114,36 @@ public class Drivetrain {
             bl.setPower(-power);
             br.setPower(power);
 
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            stopMotors();
+
         }
+
+    }
+
+    public void turn(double power, boolean right) {
+        //turns right
+        if (right) {
+            fl.setPower(power);
+            fr.setPower(-power);
+            bl.setPower(power);
+            br.setPower(-power);
+
+                   }
+
+        // turns left
+        else {
+            fl.setPower(-power);
+            fr.setPower(power);
+            bl.setPower(-power);
+            br.setPower(power);
+
+            }
 
     }
 
@@ -169,14 +219,13 @@ public class Drivetrain {
 
     }
 
-    public void moveEncoder(double power, double distance, double timeout) {
-        ElapsedTime time = new ElapsedTime();
+    public void moveEncoder(double power, long time, double distance, double timeout) {
 
         resetEncoders();
-        time.reset();
 
-        while (getEncoderAvg() < distance && time.seconds() < timeout && opMode.opModeIsActive()) {
-            setPower(power);
+
+        while (getEncoderAvg() < distance && opMode.opModeIsActive()) {
+            setPower(power, time);
 
         }
         stopMotors();
