@@ -147,13 +147,21 @@ public class Drivetrain {
 
     }
 
-    public void strafe(double power, boolean right) {
+    public void strafe(double power, long time, boolean right) {
         if (right) {
             fl.setPower(-power);
             fr.setPower(power);
             bl.setPower(power);
             br.setPower(-power);
 
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            stopMotors();
+
         }
         else {
             fl.setPower(power);
@@ -161,104 +169,77 @@ public class Drivetrain {
             bl.setPower(-power);
             br.setPower(power);
 
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            stopMotors();
+
+
         }
 
     }
 
-    public void diagonal(double power, boolean right, boolean forward) {
+    public void diagonal(double power, long time, boolean right, boolean forward) {
         if (right && forward) {
             fl.setPower(power);
             br.setPower(power);
+
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            stopMotors();
+
 
         }
         else if (!right && forward){
             fr.setPower(power);
             bl.setPower(power);
 
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            stopMotors();
+
+
         }
         else if (right) {
             fr.setPower(-power);
             bl.setPower(-power);
+
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            stopMotors();
 
         }
         else {
             fl.setPower(-power);
             br.setPower(-power);
 
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            stopMotors();
+
         }
 
     }
 
-
-    // =======================================  Encoder  ===========================================
-
-    public double getEncoderAvg() {
-        double countZeros = 0;
-
-        if (fl.getCurrentPosition() == 0) {
-            countZeros++;
-        }
-        if (fr.getCurrentPosition() == 0) {
-            countZeros++;
-        }
-        if (bl.getCurrentPosition() == 0) {
-            countZeros++;
-        }
-        if (br.getCurrentPosition() == 0) {
-            countZeros++;
-        }
-
-        if (countZeros == 4) {
-            return 0;
-        }
-
-        return (Math.abs(fl.getCurrentPosition()) +
-                Math.abs(fr.getCurrentPosition()) +
-                Math.abs(bl.getCurrentPosition()) +
-                Math.abs(br.getCurrentPosition())) / (4 - countZeros);
-
-    }
-
-    public void moveEncoder(double power, long time, double distance, double timeout) {
-
-        resetEncoders();
-
-
-        while (getEncoderAvg() < distance && opMode.opModeIsActive()) {
-            setPower(power, time);
-
-        }
-        stopMotors();
-
-    }
-
-    public void strafeEncoder(double power, double distance, boolean right, double timeout) {
-        ElapsedTime time = new ElapsedTime();
-
-        resetEncoders();
-        time.reset();
-
-        while (getEncoderAvg() < distance && time.seconds() < timeout && opMode.opModeIsActive()) {
-            strafe(power, right);
-
-        }
-        stopMotors();
-
-    }
-
-    public void diagonalEncoder(double power, double distance, boolean right, boolean forward, double timeout) {
-        ElapsedTime time = new ElapsedTime();
-
-        resetEncoders();
-        time.reset();
-
-        while (getEncoderAvg() < distance && time.seconds() < timeout && opMode.opModeIsActive()) {
-            diagonal(power, right, forward);
-
-        }
-        stopMotors();
-
-    }
 
     // =========================================  PID  =============================================
 
