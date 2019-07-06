@@ -10,13 +10,13 @@ public class TeleOP extends TeleLibs {
 
 
 
-        //intakeSlide();
-        //collect();
-        //knocker();
-        //armMove();
-
-        //intakeGateMove();
+//        intakeSlide();
+//        collect();
+//        knocker();
+//        armMove();
 //
+//        intakeGateMove();
+////
 //        if (gamepad1.a)
 //        {
 //            intakeGate.setPosition(0.0);
@@ -25,8 +25,8 @@ public class TeleOP extends TeleLibs {
 //        {
 //            intakeGate.setPosition(0.3);
 //        }
-//
+////
 //        telemetry.addData("intakeGatePos:", intakeGate.getPosition());
-        //telemetry.addData("knockerPos:", knocker.getPosition());
+//        telemetry.addData("knockerPos:", knocker.getPosition());
     }
 }

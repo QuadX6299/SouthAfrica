@@ -69,8 +69,8 @@ public class Drivetrain {
 
         fl.setPower(power);
         fr.setPower(power);
-        bl.setPower(power);
-        br.setPower(power);
+        bl.setPower(-power);
+        br.setPower(-power);
 
         try {
             Thread.sleep(time);
@@ -95,8 +95,8 @@ public class Drivetrain {
         if (right) {
             fl.setPower(power);
             fr.setPower(-power);
-            bl.setPower(power);
-            br.setPower(-power);
+            bl.setPower(-power);
+            br.setPower(power);
 
             try {
                 Thread.sleep(time);
@@ -131,8 +131,8 @@ public class Drivetrain {
         if (right) {
             fl.setPower(power);
             fr.setPower(-power);
-            bl.setPower(power);
-            br.setPower(-power);
+            bl.setPower(-power);
+            br.setPower(power);
 
                    }
 
@@ -140,8 +140,8 @@ public class Drivetrain {
         else {
             fl.setPower(-power);
             fr.setPower(power);
-            bl.setPower(-power);
-            br.setPower(power);
+            bl.setPower(power);
+            br.setPower(-power);
 
             }
 
@@ -149,21 +149,6 @@ public class Drivetrain {
 
     public void strafe(double power, long time, boolean right) {
         if (right) {
-            fl.setPower(-power);
-            fr.setPower(power);
-            bl.setPower(power);
-            br.setPower(-power);
-
-            try {
-                Thread.sleep(time);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            stopMotors();
-
-        }
-        else {
             fl.setPower(power);
             fr.setPower(-power);
             bl.setPower(-power);
@@ -177,9 +162,32 @@ public class Drivetrain {
 
             stopMotors();
 
+        }
+        else {
+            fl.setPower(-power);
+            fr.setPower(power);
+            bl.setPower(power);
+            br.setPower(-power);
+
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            stopMotors();
+
 
         }
 
+    }
+
+    public void sleep(long time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void diagonal(double power, long time, boolean right, boolean forward) {

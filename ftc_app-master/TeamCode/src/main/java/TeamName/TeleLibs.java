@@ -91,26 +91,30 @@ public abstract class TeleLibs extends OpMode {
 
     public void drive()
     {
-        if (Math.abs(gamepad1.left_stick_y) > .05 ) {
+        if (Math.abs(gamepad1.left_stick_y) > .01 ) {
             fl.setPower(gamepad1.left_stick_y);
             bl.setPower(-gamepad1.left_stick_y);
             fr.setPower(gamepad1.left_stick_y);
             br.setPower(-gamepad1.left_stick_y);
 
         }
-        else if (gamepad1.right_stick_x < -.05 || gamepad1.right_stick_x > .05 ) {
+        else if (gamepad1.right_stick_x < -.01 || gamepad1.right_stick_x > .01 ) {
+            fl.setPower(-gamepad1.right_stick_x );
+            fr.setPower(gamepad1.right_stick_x );
+            bl.setPower(gamepad1.right_stick_x);
+            br.setPower(-gamepad1.right_stick_x);
 
-            fl.setPower(-gamepad1.right_stick_x);
-            bl.setPower(-gamepad1.right_stick_x);
-            fr.setPower(gamepad1.right_stick_x);
-            br.setPower(gamepad1.right_stick_x);
-        } else if (Math.abs(gamepad1.left_stick_x )> 0.05)
+        } else if (Math.abs(gamepad1.left_stick_x )> 0.01)
         {
+            fl.setPower(-gamepad1.left_stick_x);
+            bl.setPower(-gamepad1.left_stick_x);
+            fr.setPower(gamepad1.left_stick_x);
+            br.setPower(gamepad1.left_stick_x);
 
-            fl.setPower(gamepad1.left_stick_x * -1.0);
-            fr.setPower(gamepad1.left_stick_x * 0.5);
-            bl.setPower(gamepad1.left_stick_x * 0.5);
-            br.setPower(gamepad1.left_stick_x * -0.5);
+
+
+
+
         } else {
             fl.setPower(0.0);
             bl.setPower(0.0);
@@ -163,6 +167,7 @@ public abstract class TeleLibs extends OpMode {
     public void intakeSlide() {
         double left_trigger = gamepad1.left_trigger;
         double right_trigger = gamepad1.right_trigger;
+
 
         if (left_trigger > 0.05) {
             intakeSlide.setPower(-left_trigger);
