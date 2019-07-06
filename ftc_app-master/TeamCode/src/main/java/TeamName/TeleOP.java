@@ -10,7 +10,7 @@ public class TeleOP extends TeleLibs {
 
 
 
-        intakeSlide();
+        //intakeSlide();
         collect();
         knocker();
         armMove();

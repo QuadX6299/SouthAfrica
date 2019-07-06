@@ -62,6 +62,16 @@ public abstract class TeleLibs extends OpMode {
 
     }
 
+    public void setMotorDirection(DcMotorSimple.Direction flDir, DcMotorSimple.Direction blDir,
+                                  DcMotorSimple.Direction frDir, DcMotorSimple.Direction brDir)
+    {
+
+        fl.setDirection(flDir);
+        bl.setDirection(blDir);
+        fr.setDirection(frDir);
+        br.setDirection(brDir);
+    }
+
     // =======================================  DRIVE  =============================================
 
 //    public void strafe() {
