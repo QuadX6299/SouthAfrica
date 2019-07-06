@@ -21,7 +21,7 @@ public class Intake {
     public Intake (LinearOpMode opMode) {
 
         intakeMotor = opMode.hardwareMap.dcMotor.get("intakeMotor");
-        intakeSlide = opMode.hardwareMap.dcMotor.get("intakeSlide");
+        //intakeSlide = opMode.hardwareMap.dcMotor.get("intakeSlide");
 
 
         intakeGate = opMode.hardwareMap.servo.get("intakeGate");

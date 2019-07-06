@@ -12,17 +12,17 @@ import Libraries.Output;
 
 public class auto extends LinearOpMode {
     Drivetrain dt;
-//    Output output;
-//    Intake intake;
-//    Knocker knocker;
+    Output output;
+    Intake intake;
+    Knocker knocker;
 
 
     @Override
     public void runOpMode() {
         dt = new Drivetrain(this);
-//        output = new Output(this);
-//        intake = new Intake(this);
-//        knocker = new Knocker(this);
+        output = new Output(this);
+        intake = new Intake(this);
+        knocker = new Knocker(this);
 
         waitForStart();
 

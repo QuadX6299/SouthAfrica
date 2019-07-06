@@ -31,30 +31,29 @@ public abstract class TeleLibs extends OpMode {
         bl = hardwareMap.dcMotor.get("bl"); //1
         br = hardwareMap.dcMotor.get("br"); //3
 
-        //arm = hardwareMap.dcMotor.get("arm");
+        arm = hardwareMap.dcMotor.get("arm");
 
-        //intakeMotor = hardwareMap.dcMotor.get("intakeMotor");
+        intakeMotor = hardwareMap.dcMotor.get("intakeMotor");
         //intakeSlide = hardwareMap.dcMotor.get("intakeSpool");
 
-        //output = hardwareMap.dcMotor.get("output");
 
         fl.setDirection(DcMotorSimple.Direction.REVERSE);
         fr.setDirection(DcMotorSimple.Direction.FORWARD);
         bl.setDirection(DcMotorSimple.Direction.REVERSE);
         br.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        //arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        //intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         //intakeSlide.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
-        // SERVO INITIALIZATION
-        //intakeGate = hardwareMap.servo.get("intakeGate");
-        //knocker = hardwareMap.servo.get("knocker");
+        //SERVO INITIALIZATION
+        intakeGate = hardwareMap.servo.get("intakeGate");
+        knocker = hardwareMap.servo.get("knocker");
 
-        //knocker.setPosition(0.9);
-        //intakeGate.setPosition(0.0);
+        knocker.setPosition(0.9);
+        intakeGate.setPosition(0.0);
 
 
         telemetry.addLine("Initialized");

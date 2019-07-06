@@ -16,7 +16,7 @@ public class Output {
     public Output(LinearOpMode opMode) {
         this.opMode = opMode;
 
-        output = opMode.hardwareMap.dcMotor.get("output");
+        output = opMode.hardwareMap.dcMotor.get("arm");
 
         output.setDirection(DcMotorSimple.Direction.FORWARD);
         output.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
